@@ -17,6 +17,20 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 #          cache: 'maven'
+
+# see https://github.com/nektos/act/issues/161, somehow still running into this issue.
+      - name: download Maven if running in act
+        if: ${{ github.actor == 'nektos/act' }}
+        run: |
+          echo "this job is running locally in 'act', installing Maven."
+          curl -sL https://www-eu.apache.org/dist/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.zip -o maven.zip
+          apt-get update
+          apt-get -y install unzip
+          unzip -d /usr/share maven.zip
+          rm maven.zip
+          ln -s /usr/share/apache-maven-3.8.4/bin/mvn /usr/bin/mvn
+          echo "M2_HOME=/usr/share/apache-maven-3.8.4" | tee -a /etc/environment
+
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
       - name: show workspace content
