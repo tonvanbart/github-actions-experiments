@@ -21,5 +21,5 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify
       - name: show workspace content
         run: |
-          ls -l {{ github.workspace }}
-          ls -l {{ github.workspace }}/target
+          ls -l ${{ github.workspace }}
+          ls -l ${{ github.workspace }}/target
