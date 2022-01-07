@@ -11,7 +11,7 @@ jobs:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: echo "Github context --- $GITHUB_CONTEXT"
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
@@ -32,3 +32,8 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+      - name: try setting an env variable
+        env: 
+          # FAKE_SONAR_ID: bar
+          FAKE_SONAR_ID: ${{ github.repository_owner }}_XYZZY
+        run: echo "====> ID was set to '$FAKE_SONAR_ID'"
