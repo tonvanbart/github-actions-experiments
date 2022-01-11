@@ -1,6 +1,7 @@
 name: build and test java
 on:
   push:
+  workflow_call:
 
 jobs:
   build-and-test:
@@ -37,3 +38,10 @@ jobs:
         run: |
           ls -l ${{ github.workspace }}
           ls -l ${{ github.workspace }}/target
+
+      - name: upload generated jarfile
+        uses: actions/upload-artifact@master
+        if: ${{ github.actor != 'nektos/act' }} # not possible locally
+        with:
+          name: generated-jarfile
+          path: target/*jar-with-dependencies.jar
