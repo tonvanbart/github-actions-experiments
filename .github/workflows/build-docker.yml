@@ -4,8 +4,7 @@ on:
 
 jobs:
   call-build-and-test:
-    runs-on: ubuntu-latest
-    uses: tonvanbart/github-actions-experiments/.github/workflows/build-and-test.yml
+    uses: tonvanbart/github-actions-experiments/.github/workflows/build-and-test.yml@main
 
   build-docker:
     name: build Docker image
